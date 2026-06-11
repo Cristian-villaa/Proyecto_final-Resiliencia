@@ -9,8 +9,8 @@ El objetivo principal es integrar conceptos avanzados de almacenamiento redundan
 
 - *Redundancia Física:* RAID1 para tolerancia a fallos de disco.  
 - *Flexibilidad Lógica:* LVM y BtrFS para snapshots y gestión dinámica.  
-- *Orquestación y Persistencia:* Kubernetes con Kind para cargas de trabajo con estado.  
-- *Automatización:* Backups periódicos con Python + cron.  
+- *Automatización:* Backups periódicos con Python + cron.
+- *Orquestación y Persistencia:* Kubernetes con Kind para cargas de trabajo con estado.
 
 ---
 
@@ -30,7 +30,7 @@ El proyecto se organiza en *cuatro capas de respaldo*, cada una relacionada con 
 
 ## ⚙️ Desarrollo del Proyecto
 
-### 1️⃣ RAID1 + LVM
+### 1 RAID1 + LVM
 - RAID1 con discos en espejo para redundancia física.  
 - LVM sobre RAID para crear volúmenes lógicos flexibles.  
 - Simulación de falla de disco con recuperación automática.  
@@ -39,7 +39,7 @@ El proyecto se organiza en *cuatro capas de respaldo*, cada una relacionada con 
 
 ---
 
-### 2️⃣ BtrFS y Snapshots
+### 2 BtrFS y Snapshots
 - Configuración de BtrFS con subvolúmenes y snapshots instantáneos.  
 - Comparación frente a snapshots de LVM.  
 - Restauración inmediata tras pérdida de archivos.  
@@ -47,22 +47,21 @@ El proyecto se organiza en *cuatro capas de respaldo*, cada una relacionada con 
 📌 Resultado: resiliencia lógica y eficiencia superior.
 
 ---
+### 3 Backups Automatizados
+- Script en Python para respaldos comprimidos con fecha/hora.  
+- Integración con cron para ejecución periódica.  
+- Restauración tras borrado masivo validada.  
 
-### 3️⃣ Kubernetes (Kind)
+📌 Resultado: copias externas y recuperación total.
+
+---
+### 4 Kubernetes (Kind)
 - Clúster mínimo adaptado a recursos limitados.  
 - Validación de persistencia en Pods y StatefulSets.  
 - Autorrecuperación automática de cargas de trabajo.  
 
 📌 Resultado: continuidad de servicios garantizada.
 
----
-
-### 4️⃣ Backups Automatizados
-- Script en Python para respaldos comprimidos con fecha/hora.  
-- Integración con cron para ejecución periódica.  
-- Restauración tras borrado masivo validada.  
-
-📌 Resultado: copias externas y recuperación total.
 
 ---
 
@@ -71,7 +70,8 @@ El proyecto se organiza en *cuatro capas de respaldo*, cada una relacionada con 
 Este proyecto demuestra que la *resiliencia completa* se logra combinando capas:  
 - *RAID1* protege contra fallos físicos.  
 - *LVM/BtrFS* permiten snapshots y flexibilidad lógica.  
-- *Backups externos* aseguran continuidad frente a desastres.  
+- *Backups externos* aseguran continuidad frente a desastres.
+- *Kubernetes* garantiza la persistencia y autorrecuperación de aplicaciones, manteniendo los servicios disponibles incluso ante fallos internos.
 
 La integración de estas capas, junto con Kubernetes y automatización, ofrece una solución práctica y replicable para entornos educativos y laboratorios.
 
