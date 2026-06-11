@@ -7,51 +7,7 @@
 ## 3. BtrFS — Snapshots y restauración
 (Contenido ubicado en almacenamiento/btrfs.md)
 
-
-Gestión de Sistema de Archivos y Snapshots con BtrFS
-Esta sección prepara un disco con el sistema de archivos BtrFS, crea subvolumenes, genera una instantánea (instantánea) de respaldo y prueba la restauración de un archivo eliminado.
-
-## sudo mkfs.btrfs /dev/sdd
-
- Formateea el disco o partición/dev/sdd utilizando el sistema de archivos BtrFS .
-
-## sudo mkdir /mnt/btrfs_test
-
- Crea un directorio vacío en el sistema que servirá como punto de montaje para el nuevo disco.
-
-## sudo mount /dev/sdd /mnt/btrfs_test
-
- Monta el disco BtrFS recién formateado en el directorio creado, haciéndolo accesible.
-
-## sudo btrfs subvolume create /mnt/btrfs_test/snap1
-
- Crea un subvolumen llamado snap1dentro del disco BtrFS (actúa de forma similar a una partición virtual dedicada).
-
-## echo "Archivo de prueba restaurable" | sudo tee /mnt/btrfs_test/snap1/test.txt
-
-Escribe la frase dentro de las comillas en un archivo nuevo llamado (test.txt) dentro del subvolumen.
-
-## sudo btrfs subvolume snapshot /mnt/btrfs_test/snap1 /mnt/btrfs_test/restore
-
-  Toma una instantánea (snapshot) exacta del estado actual de snap1y la guarda con el nombre restore.
-
-## sudo rm /mnt/btrfs_test/snap1/test.txt
-
- Simulación de pérdida de datos: Elimina el archivo original test.txtdel subvolumen snap1.
-
-## sudo mkdir /mnt/restore
-
- Cree un nuevo directorio para montar específicamente la instantánea de respaldo.
-
-## sudo mount -o subvol=restore /dev/sdd /mnt/restore
-
- Monta el disco /dev/sdd, pero especificando el parámetro ( -o subvol=restore) para acceder únicamente al contenido de la instantánea .
-
-## ls /mnt/restore/snap1
-
- Lista el contenido de la instantánea montada para verificar que el archivo test.txt  sigue existiendo y fue recuperado allí.
-
-## 2. Orquestación y Resiliencia con Kubernetes (Kind)
+## 4. Orquestación y Resiliencia con Kubernetes (Kind)
 Esta sección levanta un clúster de Kubernetes local, despliega aplicaciones con almacenamiento persistente y realiza pruebas de fallos para verificar la autorrecuperación.
 
 ## kind create cluster --config ~/proyecto-final/kubernetes/kind-config.yaml
@@ -86,7 +42,7 @@ Elimina el primer Pod del StatefulSet para probar su comportamiento ante fallos.
 
 (Tercera ejecución) Verifica que el StatefulSet crea automáticamente el Pod manteniendo el mismo nombre e identidad ( Prueba de autorrecuperación ).
 
-## 3. Automatización de Copias de Seguridad (Python, Cron y Tar)
+## 5. Automatización de Copias de Seguridad (Python, Cron y Tar)
 Esta sección ejecuta un script de respaldo, programa su ejecución automática cada 5 minutos y simula la restauración total de un archivo web borrado accidentalmente.
 
 ## python3 ~/proyecto-final/backups/backup.py ~/proyecto-final
