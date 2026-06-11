@@ -16,16 +16,16 @@ El objetivo principal es integrar conceptos avanzados de almacenamiento redundan
 
 ## 🧱 Arquitectura en Capas
 
-El proyecto se organiza en *tres capas de respaldo*, cada una relacionada con la anterior:
+El proyecto se organiza en *cuatro capas de respaldo*, cada una relacionada con la anterior:
 
 | Capa | Tecnología | Relación con la anterior |
 |------|-------------|--------------------------|
-| *1️⃣ Hardware* | RAID1 (MDADM) | Base física: asegura que los discos no sean un único punto de falla. |
-| *2️⃣ Volúmenes Lógicos* | LVM + BtrFS | Se construyen sobre RAID: agregan flexibilidad y snapshots para restaurar estados internos. |
-| *3️⃣ Copias Externas* | Python + Cron | Se apoyan en los volúmenes: generan respaldos fuera del sistema para recuperación total. |
+| *Hardware* | RAID1 (MDADM) | Base física: asegura que los discos no sean un único punto de falla. |
+| *Volúmenes Lógicos* | LVM + BtrFS | Se construyen sobre RAID: agregan flexibilidad y snapshots para restaurar estados internos. |
+| *Copias Externas* | Python + Cron | Se apoyan en los volúmenes: generan respaldos fuera del sistema para recuperación total. |
+| *Orquestación* | Kubernetes (Kind) | Se apoya en las capas inferiores: garantiza la persistencia y autorrecuperación de aplicaciones y servicios. |
 
-👉 *Relación:* RAID protege el hardware → LVM/BtrFS protegen la lógica → Backups externos aseguran continuidad frente a desastres.
-
+👉 *Relación:* RAID protege el hardware → LVM/BtrFS protegen la lógica → Backups externos aseguran continuidad → Kubernetes mantiene la disponibilidad de los servicios.
 ---
 
 ## ⚙️ Desarrollo del Proyecto
